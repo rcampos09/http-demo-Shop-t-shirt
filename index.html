@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega esta línea -->
+</head>
+
+<body>
+
+    <header>
+        <h1>Tienda Online T-shirt 🛍️</h1>
+        <p>@dontesterlabs</p>
+        <div id="usuario-info"></div>
+    </header>
+
+    <div id="login">
+        <br>
+        <br>
+        <h2>Login</h2>
+        <div id="estado-login">
+            <form id="formulario-login" onsubmit="return validarLogin()">
+                <br>
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" required>
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" required>
+                <br>
+                <br>
+                <input type="submit" value="Iniciar Sesión">
+            </form>
+            <button onclick="cerrarSesion()" id="btn-logout" style="display:none;">Cerrar Sesión</button>
+            <p>Ingresa con usuario: <strong>usuario</strong> y contraseña: <strong>contrasena</strong></p>
+        </div>
+    </div>
+
+    <section>
+        <div class="product" id="product1">
+            <img src="./image/ella.jpg" alt="Producto 1">
+            <h2>Producto 1</h2>
+            <p>Descripción del producto 1.</p>
+            <p>Precio: $20.00</p>
+            <button onclick="verDetalles('1','Producto 1', 'Descripción del producto 1.', 20.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 1', 20.00)">Agregar al Carro</button>
+        </div>
+
+        <div class="product" id="product2">
+            <img src="./image/ella.jpg" alt="Producto 2">
+            <h2>Producto 2</h2>
+            <p>Descripción del producto 2.</p>
+            <p>Precio: $30.00</p>
+            <button onclick="verDetalles('2','Producto 2', 'Descripción del producto 2.', 30.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 2', 30.00)">Agregar al Carro</button>
+        </div>
+
+
+        <div class="product" id="product3">
+            <img src="./image/ella.jpg" alt="Producto 3">
+            <h2>Producto 3</h2>
+            <p>Descripción del producto 3.</p>
+            <p>Precio: $17.00</p>
+            <button onclick="verDetalles('3','Producto 3', 'Descripción del producto 3.', 17.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 3', 17.00)">Agregar al Carro</button>
+        </div>
+
+
+        <div class="product" id="product4">
+            <img src="./image/ella.jpg" alt="Producto 4">
+            <h2>Producto 4</h2>
+            <p>Descripción del producto 4.</p>
+            <p>Precio: $16.00</p>
+            <button onclick="verDetalles('4','Producto 4', 'Descripción del producto 4.', 16.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 4', 16.00)">Agregar al Carro</button>
+        </div>
+
+
+        <div class="product" id="product5">
+            <img src="./image/ella.jpg" alt="Producto 5">
+            <h2>Producto 5</h2>
+            <p>Descripción del producto 5.</p>
+            <p>Precio: $19.00</p>
+            <button onclick="verDetalles('5','Producto 6', 'Descripción del producto 6.', 19.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 5', 19.00)">Agregar al Carro</button>
+        </div>
+
+
+        <div class="product" id="product6">
+            <img src="./image/ella.jpg" alt="Producto 6">
+            <h2>Producto 6</h2>
+            <p>Descripción del producto 6.</p>
+            <p>Precio: $10.00</p>
+            <button onclick="verDetalles('6','Producto 6', 'Descripción del producto 6.', 10.00)">Ver Detalles</button>
+            <br>
+            <br>
+            <button onclick="agregarAlCarro('Producto 6', 10.00)">Agregar al Carro</button>
+        </div>
+
+    </section>
+
+    <div id="carro">
+        <h2>Carro de Compra</h2>
+        <ul id="lista-carro"></ul>
+        <p>Total: $<span id="total">0.00</span></p>
+        <button onclick="realizarCompra()">Comprar</button>
+    </div>
+
+    <footer>
+        <div id="footer-content">
+            <div id="footer-info">
+                <p>&copy; 2023 Tienda Online Ficticia</p>
+                <p>@dontesterlabs</p>
+            </div>
+            <a href="details.html">Detalles</a>
+        </div>
+    </footer>
+
+    <script>
+        var usuarioCorrecto = "usuario";
+        var contrasenaCorrecta = "contrasena";
+        var usuarioActual = null;
+
+        function agregarAlCarro(nombre, precio) {
+            if (usuarioActual) {
+                var listaCarro = document.getElementById("lista-carro");
+                var nuevoElemento = document.createElement("li");
+                nuevoElemento.textContent = nombre + " - $" + precio.toFixed(2);
+                listaCarro.appendChild(nuevoElemento);
+                actualizarTotal(precio);
+            } else {
+                alert("Debes iniciar sesión para agregar productos al carro.");
+            }
+        }
+
+        function actualizarTotal(precio) {
+            var totalElemento = document.getElementById("total");
+            var totalActual = parseFloat(totalElemento.textContent);
+            var nuevoTotal = totalActual + precio;
+            totalElemento.textContent = nuevoTotal.toFixed(2);
+        }
+
+        function validarLogin() {
+            var usuario = document.getElementById("usuario").value;
+            var contrasena = document.getElementById("contrasena").value;
+
+            if (usuario === usuarioCorrecto && contrasena === contrasenaCorrecta) {
+                alert("Inicio de sesión exitoso");
+                usuarioActual = usuario;
+                mostrarInfoUsuario();
+                mostrarLogoutButton();
+                return false; // Cancela el envío del formulario
+            } else {
+                alert("Credenciales incorrectas");
+                return false; // Cancela el envío del formulario
+            }
+        }
+
+        function mostrarInfoUsuario() {
+            var usuarioInfo = document.getElementById("usuario-info");
+            usuarioInfo.textContent = "Bienvenido, " + usuarioActual + "!";
+        }
+
+        function mostrarLogoutButton() {
+            var formularioLogin = document.getElementById("formulario-login");
+            formularioLogin.style.display = "none";
+
+            var btnLogout = document.getElementById("btn-logout");
+            btnLogout.style.display = "inline-block";
+        }
+
+        function cerrarSesion() {
+            usuarioActual = null;
+            var usuarioInfo = document.getElementById("usuario-info");
+            usuarioInfo.textContent = "";
+
+            var formularioLogin = document.getElementById("formulario-login");
+            formularioLogin.style.display = "block";
+
+            var btnLogout = document.getElementById("btn-logout");
+            btnLogout.style.display = "none";
+        }
+
+        function realizarCompra() {
+            if (usuarioActual) {
+                var idCompra = generarIDCompra();
+                alert("Compra exitosa. ID de compra: " + idCompra);
+                limpiarCarro();
+            } else {
+                alert("Debes iniciar sesión para realizar una compra.");
+            }
+        }
+
+        function generarIDCompra() {
+            return Math.floor(Math.random() * 1000000) + 1;
+        }
+
+        function limpiarCarro() {
+            var listaCarro = document.getElementById("lista-carro");
+            var totalElemento = document.getElementById("total");
+
+            while (listaCarro.firstChild) {
+                listaCarro.removeChild(listaCarro.firstChild);
+            }
+
+            totalElemento.textContent = "0.00";
+        }
+
+
+        function verDetalles(id, nombre, descripcion, precio) {
+            // Redirigir a una página específica para el producto
+            window.location.href = 'productDetails.html?id=' + encodeURIComponent(id) +
+                '&nombre=' + encodeURIComponent(nombre) +
+                '&descripcion=' + encodeURIComponent(descripcion) +
+                '&precio=' + encodeURIComponent(precio.toFixed(2));
+        }
+    </script>
+
+</body>
+
+</html>

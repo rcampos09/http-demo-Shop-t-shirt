@@ -1,0 +1,73 @@
+<!-- detalles_producto.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Agrega esta línea -->
+</head>
+
+<body>
+
+    <header>
+        <h1>Tienda Online T-shirt 🛍️</h1>
+        <p>@dontesterlabs</p>
+        <div id="usuario-info"></div>
+    </header>
+
+    <section id="product-details-section" class="product-container">
+        <!-- AQUI -->
+    </section>
+
+    <div id="carro">
+        <h2>Carro de Compra</h2>
+        <ul id="lista-carro"></ul>
+        <p>Total: $<span id="total">0.00</span></p>
+        <button onclick="realizarCompra()">Comprar</button>
+    </div>
+    <button onclick="volverAlHome()">Volver al Home</button>
+
+    <footer>
+        <div id="footer-content">
+            <div id="footer-info">
+                <p>&copy; 2023 Tienda Online Ficticia</p>
+                <p>@dontesterlabs</p>
+            </div>
+            <a href="details.html">Detalles</a>
+        </div>
+    </footer>
+
+    <script>
+        // Obtener parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const nombre = params.get('nombre');
+        const descripcion = params.get('descripcion');
+        const precio = params.get('precio');
+
+        // Seleccionar la sección "AQUI"
+        const pds = document.getElementById('product-details-section');
+
+        // Mostrar detalles en la página dentro de la sección "AQUI"
+        pds.innerHTML = `
+            <div class="product" id="product${id}">
+                <img src="./image/ella.jpg" alt="Producto ${id}">
+                <h2>${nombre}</h2>
+                <p>${descripcion}</p>
+                <p>Precio: $${precio}</p>
+                <button onclick="agregarAlCarro('${nombre}', ${precio})">Agregar al Carro</button>
+            </div>
+        `;
+
+        // Función para volver al Home
+        function volverAlHome() {
+            window.location.href = "index.html"; // Ajusta la ruta según tu estructura de archivos
+        }
+    </script>
+
+</body>
+
+</html>

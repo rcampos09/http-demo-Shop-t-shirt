@@ -33,10 +33,13 @@ Bienvenido/a a la Tienda Online de T-shirts. Esta página web simula una tienda 
 
 ¡Disfruta de tu experiencia de compra en nuestra Tienda Online ficticia!
 
-## Autor
+**Firma:** Rodrigo Campos Tapia [@DonTester]
 
-- [Twitter: @dontester_](https://twitter.com/dontester_labs_)
+**Sígueme en mis redes sociales:**
 
----
-
-© 2023 Tienda Online Ficticia | @dontesterlabs
+[<img src="https://simpleicons.org/icons/instagram.svg" alt="Instagram" width="24"/>](https://www.instagram.com/dontester_/) **Instagram** &nbsp; &nbsp;
+[<img src="https://simpleicons.org/icons/twitter.svg" alt="Twitter" width="24"/>](https://twitter.com/DonTester_) **Twitter** &nbsp; &nbsp;
+[<img src="https://simpleicons.org/icons/linkedin.svg" alt="LinkedIn" width="24"/>](https://www.linkedin.com/in/rcampostapia) **LinkedIn** &nbsp; &nbsp;
+[<img src="https://simpleicons.org/icons/github.svg" alt="GitHub" width="24"/>](https://github.com/rcampos09) **GitHub** &nbsp; &nbsp;
+[<img src="https://simpleicons.org/icons/youtube.svg" alt="YouTube" width="24"/>](https://www.youtube.com/@dontester) **YouTube** &nbsp; &nbsp;
+[<img src="https://simpleicons.org/icons/medium.svg" alt="Medium" width="24"/>](https://medium.com/@rcampos.tapia) **Medium**

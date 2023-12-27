@@ -36,7 +36,6 @@
                 <p>&copy; 2023 Tienda Online Ficticia</p>
                 <p>@dontesterlabs</p>
             </div>
-            <a href="details.html">Detalles</a>
         </div>
     </footer>
 
@@ -58,8 +57,31 @@
                 <h2>${nombre}</h2>
                 <p>${descripcion}</p>
                 <p>Precio: $${precio}</p>
-                <button onclick="agregarAlCarro('${nombre}', ${precio})">Agregar al Carro</button>
-            </div>
+                <form id="product-options-form">
+                <label for="color">Seleccione Color:</label>
+                <select id="color" name="color">
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <br>
+                <br>
+                <label>Seleccione talla:</label>
+                <div class="size-options">
+                    <input type="radio" id="sizeS" name="size" value="s">
+                    <label for="sizeS">S</label>
+
+                    <input type="radio" id="sizeM" name="size" value="m">
+                    <label for="sizeM">M</label>
+
+                    <input type="radio" id="sizeL" name="size" value="l">
+                    <label for="sizeL">L</label>
+                    <!-- Add more radio buttons as needed -->
+                </div>
+                <br>
+                <button type="button" onclick="addToCartWithOptions('${nombre}', ${precio})">Add to Cart</button>
+            </form>
         `;
 
         // Función para volver al Home

@@ -80,7 +80,7 @@
                     <!-- Add more radio buttons as needed -->
                 </div>
                 <br>
-                <button type="button" onclick="addToCartWithOptions('${nombre}', ${precio})">Add to Cart</button>
+                <button type="button" onclick="addToCartWithOptions('${nombre}', ${precio})">Agregar al Carro</button>
             </form>
         `;
 
@@ -88,6 +88,143 @@
         function volverAlHome() {
             window.location.href = "index.html"; // Ajusta la ruta según tu estructura de archivos
         }
+
+        var usuarioCorrecto = "usuario";
+        var contrasenaCorrecta = "contrasena";
+        var usuarioActual = null;
+
+        function agregarAlCarro(nombre, precio) {
+            if (usuarioActual) {
+                var listaCarro = document.getElementById("lista-carro");
+                var nuevoElemento = document.createElement("li");
+                nuevoElemento.textContent = nombre + " - $" + precio.toFixed(2);
+                listaCarro.appendChild(nuevoElemento);
+                actualizarTotal(precio);
+            } else {
+                alert("Debes iniciar sesión para agregar productos al carro.");
+            }
+        }
+
+        function addToCartWithOptions(nombre, precio) {
+            // Obtener las opciones seleccionadas
+            var selectedColor = document.getElementById('color').value;
+            var selectedSize = document.querySelector('input[name="size"]:checked');
+
+            // Verificar si se han seleccionado color y talla
+            if (selectedColor && selectedSize) {
+                // Obtener el valor de la talla seleccionada
+                var sizeValue = selectedSize.value;
+
+                // Construir una cadena que represente las opciones seleccionadas
+                var opciones = "Color: " + selectedColor + ", Talla: " + sizeValue;
+
+                // Llamar a la función para agregar al carro con opciones
+                agregarAlCarro(nombre + " (" + opciones + ")", precio);
+                alert("Producto agregado al carro con éxito.");
+            } else {
+                alert("Debes iniciar sesión para agregar productos al carro.");
+            }
+        }
+
+        function actualizarTotal(precio) {
+            var totalElemento = document.getElementById("total");
+            var totalActual = parseFloat(totalElemento.textContent);
+            var nuevoTotal = totalActual + precio;
+            totalElemento.textContent = nuevoTotal.toFixed(2);
+        }
+
+        function validarLogin() {
+            var usuario = document.getElementById("usuario").value;
+            var contrasena = document.getElementById("contrasena").value;
+
+            if (usuario === usuarioCorrecto && contrasena === contrasenaCorrecta) {
+                alert("Inicio de sesión exitoso");
+                usuarioActual = usuario;
+                mostrarInfoUsuario();
+                mostrarLogoutButton();
+
+                // Guardar el estado del usuario en localStorage
+                localStorage.setItem("usuarioActual", usuarioActual);
+
+                return false; // Cancela el envío del formulario
+            } else {
+                alert("Credenciales incorrectas");
+                return false; // Cancela el envío del formulario
+            }
+        }
+
+        function mostrarInfoUsuario() {
+            var usuarioInfo = document.getElementById("usuario-info");
+            usuarioInfo.textContent = "Bienvenido, " + usuarioActual + "!";
+        }
+
+        function mostrarLogoutButton() {
+            var formularioLogin = document.getElementById("formulario-login");
+            formularioLogin.style.display = "none";
+
+            var btnLogout = document.getElementById("btn-logout");
+            btnLogout.style.display = "inline-block";
+        }
+
+        function cerrarSesion() {
+            usuarioActual = null;
+
+            // Eliminar la información de la sesión en localStorage
+            localStorage.removeItem("usuarioActual");
+
+            var usuarioInfo = document.getElementById("usuario-info");
+            usuarioInfo.textContent = "";
+
+            var formularioLogin = document.getElementById("formulario-login");
+            formularioLogin.style.display = "block";
+
+            var btnLogout = document.getElementById("btn-logout");
+            btnLogout.style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Verificar si hay una sesión activa en localStorage
+            var usuarioEnLocalStorage = localStorage.getItem("usuarioActual");
+            if (usuarioEnLocalStorage) {
+                usuarioActual = usuarioEnLocalStorage;
+                mostrarInfoUsuario();
+                mostrarLogoutButton();
+            }
+        });
+        function realizarCompra() {
+            if (usuarioActual) {
+                var idCompra = generarIDCompra();
+                alert("Compra exitosa. ID de compra: " + idCompra);
+                limpiarCarro();
+            } else {
+                alert("Debes iniciar sesión para realizar una compra.");
+            }
+        }
+
+        function generarIDCompra() {
+            return Math.floor(Math.random() * 1000000) + 1;
+        }
+
+        function limpiarCarro() {
+            var listaCarro = document.getElementById("lista-carro");
+            var totalElemento = document.getElementById("total");
+
+            while (listaCarro.firstChild) {
+                listaCarro.removeChild(listaCarro.firstChild);
+            }
+
+            totalElemento.textContent = "0.00";
+        }
+
+
+        function verDetalles(id, nombre, descripcion, precio) {
+            // Redirigir a una página específica para el producto
+            window.location.href = 'productDetails.html?id=' + encodeURIComponent(id) +
+                '&nombre=' + encodeURIComponent(nombre) +
+                '&descripcion=' + encodeURIComponent(descripcion) +
+                '&precio=' + encodeURIComponent(precio.toFixed(2));
+        }
+
     </script>
 
 </body>

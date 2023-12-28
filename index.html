@@ -19,6 +19,7 @@
     <div id="login">
         <br>
         <br>
+        <br>
         <h2>Login</h2>
         <div id="estado-login">
             <form id="formulario-login" onsubmit="return validarLogin()">
@@ -158,6 +159,10 @@
                 usuarioActual = usuario;
                 mostrarInfoUsuario();
                 mostrarLogoutButton();
+
+                // Guardar el estado del usuario en localStorage
+                localStorage.setItem("usuarioActual", usuarioActual);
+
                 return false; // Cancela el envío del formulario
             } else {
                 alert("Credenciales incorrectas");
@@ -180,6 +185,10 @@
 
         function cerrarSesion() {
             usuarioActual = null;
+
+            // Eliminar la información de la sesión en localStorage
+            localStorage.removeItem("usuarioActual");
+
             var usuarioInfo = document.getElementById("usuario-info");
             usuarioInfo.textContent = "";
 
@@ -190,6 +199,16 @@
             btnLogout.style.display = "none";
         }
 
+        document.addEventListener("DOMContentLoaded", function () {
+            // Verificar si hay una sesión activa en localStorage
+            var usuarioEnLocalStorage = localStorage.getItem("usuarioActual");
+            if (usuarioEnLocalStorage) {
+                usuarioActual = usuarioEnLocalStorage;
+                mostrarInfoUsuario();
+                mostrarLogoutButton();
+            }
+        });
+        
         function realizarCompra() {
             if (usuarioActual) {
                 var idCompra = generarIDCompra();
